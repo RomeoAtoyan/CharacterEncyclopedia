@@ -1,0 +1,15 @@
+body {
+  background-color: #02062c !important;
+}
+
+.App {
+  width: 100%;
+  height: max-content;
+}
+
+.character-container {
+  width: 90%;
+  margin: 0 auto;
+  height: max-content;
+  display: flex;
+}

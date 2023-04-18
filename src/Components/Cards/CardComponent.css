@@ -1,0 +1,10 @@
+.heroes_container {
+  width: 60%;
+  margin: 30px;
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
