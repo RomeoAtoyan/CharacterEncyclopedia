@@ -8,3 +8,9 @@
   gap: 20px;
   padding: 20px;
 }
+
+.character-mini-card:hover {
+  transition: all 0.1s ease-in-out;
+  transform: translateY(-10px);
+  cursor: pointer;
+}

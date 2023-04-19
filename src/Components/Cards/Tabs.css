@@ -1,0 +1,26 @@
+.tabs-container {
+  height: 100%;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.tab {
+  background-color: yellow;
+  padding: 2px;
+  color: black;
+  font-weight: bolder;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+
+.tab-content {
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

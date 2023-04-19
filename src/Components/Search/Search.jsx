@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "./Search.css";
+import { useDebounce } from "../Debounce/Debounce";
+import Card from "react-bootstrap/Card";
+import "animate.css";
 
 const Search = () => {
   const [search, setSearch] = useState("");
+  const [emptySearch, setEmptySearch] = useState(true);
   const [searchedHero, setSearchedHero] = useState(null);
+  const debouncedSearch = useDebounce(search, 1000);
 
+  // fetch karakter info a.d.v input
   const getSearchedCharacter = async () => {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "2238a70dadmshde0dd25d90489a2p17fe94jsn2c74b54dec70",
+        "X-RapidAPI-Key": "62f920c671msh3ba91345981d596p128993jsn9f1cac9f053b",
         "X-RapidAPI-Host": "superhero-search.p.rapidapi.com",
       },
     };
-
     const response = await fetch(
       `https://superhero-search.p.rapidapi.com/api/?hero=${search}`,
       options
@@ -23,22 +28,46 @@ const Search = () => {
     console.log(data);
   };
 
-//   useEffect(() => {}, []);
+  // zoek input waarde naar search state
+  // geen karakter tonen als input leeg is
+  const getSearchTerm = (e) => {
+    e.target.value === "" ? setEmptySearch(true) : setEmptySearch(false);
+    setSearch(e.target.value);
+  };
+
+  // component refreshen als input veranderd. DEBOUNCE voor minimale netwerk gebruik (1 seconde wachten op input waarde voordat de data wordt gefetcht)
+  useEffect(() => {
+    getSearchedCharacter();
+  }, [debouncedSearch]);
 
   return (
     <aside className="search-container">
       <div className="input-section">
-        <input type="text" />
+        <input onChange={getSearchTerm} type="text" />
       </div>
-      <div className="search-result-section">
-        <div className="search-result">
-          <img
-            src="https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/lg/313-hawkeye.jpg"
-            alt=""
-          />
-          <h1>Hawkeye</h1>
+      {emptySearch ? (
+        ""
+      ) : (
+        <div className="search-result-section animate__animated animate__fadeInDown">
+          <div className="search-result ">
+            <Card
+              style={{ width: "10rem", color: "yellow" }}
+              className="card-shadow bg-black"
+            >
+              <Card.Img
+                className="result-image"
+                variant="top"
+                src={searchedHero?.images?.md}
+              />
+              <Card.Body>
+                <Card.Title style={{ textAlign: "center", fontSize: "medium" }}>
+                  {searchedHero?.name}
+                </Card.Title>
+              </Card.Body>
+            </Card>
+          </div>
         </div>
-      </div>
+      )}
     </aside>
   );
 };

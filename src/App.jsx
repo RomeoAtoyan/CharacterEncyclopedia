@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
-
 import "./App.css";
 import CardComponent from "./Components/Cards/CardComponent";
 import Search from "./Components/Search/Search";
+import Nav from "./Components/Navbar/Navbar";
+import DetailedCard from "./Components/Cards/DetailedCard";
 
 function App() {
+  // nodige state in app.js declareren om door te geven aan de componenten
   const [heroes, setHeroes] = useState(null);
   const [searchedHero, setSearchedHero] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState();
+  const [isTabActive, setIsTabActive] = useState(false);
 
+  // list van karakters fetchen en omvormen naar json formaat en heroes state omzetten naar de ontvangen data
   const getHeroes = async () => {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "2238a70dadmshde0dd25d90489a2p17fe94jsn2c74b54dec70",
+        "X-RapidAPI-Key": "62f920c671msh3ba91345981d596p128993jsn9f1cac9f053b",
         "X-RapidAPI-Host": "superhero-search.p.rapidapi.com",
       },
     };
@@ -31,71 +36,30 @@ function App() {
 
   return (
     <div className="App">
+      <Nav />
       <main className="character-container">
-        <CardComponent heroes={heroes} setHeroes={setHeroes} />
-        <Search />
+        <CardComponent
+          setSelectedCharacter={setSelectedCharacter}
+          selectedCharacter={selectedCharacter}
+          setSearchedHero={setSearchedHero}
+          searchedHero={searchedHero}
+          heroes={heroes}
+          setHeroes={setHeroes}
+          isTabActive={isTabActive}
+          setIsTabActive={setIsTabActive}
+        />
+        <div className="search-and-detailed-container">
+          <Search />
+          <DetailedCard
+            setIsTabActive={setIsTabActive}
+            isTabActive={isTabActive}
+            selectedCharacter={selectedCharacter}
+            setSelectedCharacter={setSelectedCharacter}
+          />
+        </div>
       </main>
     </div>
   );
 }
 
 export default App;
-
-// {
-//   "id": 30,
-//   "name": "Ant-Man",
-//   "slug": "30-ant-man",
-//   "powerstats": {
-//       "intelligence": 100,
-//       "strength": 18,
-//       "speed": 23,
-//       "durability": 28,
-//       "power": 32,
-//       "combat": 32
-//   },
-//   "appearance": {
-//       "gender": "Male",
-//       "race": "Human",
-//       "height": [
-//           "6'11",
-//           "211 cm"
-//       ],
-//       "weight": [
-//           "270 lb",
-//           "122 kg"
-//       ],
-//       "eyeColor": "Blue",
-//       "hairColor": "Blond"
-//   },
-//   "biography": {
-//       "fullName": "Hank Pym",
-//       "alterEgos": "Giant-Man, Goliath, Wasp II, Yellowjacket",
-//       "aliases": [
-//           "Hank Pym",
-//           "Doctor Pym",
-//           "Ant-Man",
-//           "Goliath",
-//           "Yellowjacket",
-//           "Wasp",
-//           "Earth's Scientist Supreme"
-//       ],
-//       "placeOfBirth": "Elmsford, New York",
-//       "firstAppearance": "Tales to Astonish #27 (January, 1962) (as Hank Pym)  Tales to Astonish #35 (September, 1962) (as Ant-Man)",
-//       "publisher": "Giant-Man",
-//       "alignment": "good"
-//   },
-//   "work": {
-//       "occupation": "Adventurer, Biochemist, former manager of Avengers Compound",
-//       "base": "Avengers Compound, Los Angeles; formerly Infinite Avengers Mansion; Captive aboard a Skrull ship; Avengers Mansion, New York City, New York"
-//   },
-//   "connections": {
-//       "groupAffiliation": "Avengers Academy, Secret Avengers; formerly Mighty Avengers, Avengers (founding member), Defenders, Future Iron Man's Team",
-//       "relatives": "-"
-//   },
-//   "images": {
-//       "xs": "https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/xs/30-ant-man.jpg",
-//       "sm": "https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/sm/30-ant-man.jpg",
-//       "md": "https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/md/30-ant-man.jpg",
-//       "lg": "https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/images/lg/30-ant-man.jpg"
-//   }
-// }
