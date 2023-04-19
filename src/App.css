@@ -1,17 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap");
 
-*{
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Orbitron', sans-serif !important;
+  font-family: "Orbitron", sans-serif !important;
   letter-spacing: 1px;
-  transition: 0.1s all ease-in-out;
+  transition: 0.1s all ease-in-out !important;
   box-sizing: border-box;
 }
 
-
 body {
-  background-color: #02062c !important;
+  /* background-color: #02062c !important; */
+  background-image: url("https://images6.alphacoders.com/705/705204.jpg");
+  background-size: contain;
 }
 
 .App {
@@ -25,9 +26,6 @@ body {
   display: flex;
 }
 
-.card-shadow {
-  box-shadow: 0 0 7px yellow;
-}
 
 .search-and-detailed-container {
   display: flex;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Tabs from "./Tabs";
@@ -6,26 +6,50 @@ import "./DetailedCard.css";
 
 const DetailedCard = ({
   selectedCharacter,
-  setSelectedCharacter,
   isTabActive,
-  setIsTabActive,
 }) => {
   const [activeTab, setActiveTab] = useState("Appearance");
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+  // indien er geen gewicht of lengte ontvangen wordt
+  const test = (char) => {
+    if (
+      char?.appearance.height[1] === "0 cm" ||
+      char?.appearance.weight[1] === "0 kg"
+    ) {
+      return "no-cm";
+    }
+  };
+
+  // verschillende namen bij verschillende api calls
+  const fullNameIfNoName = selectedCharacter?.biography["full-name"];
+  const alterEgoIfNoAlterEgo = selectedCharacter?.biography["alter-egos"];
+  const birthIfNoBirth = selectedCharacter?.biography["place-of-birth"];
+  const appearanceIfNoAppearance =
+    selectedCharacter?.biography["first-appearance"];
+  const groupAffiliationIfNogroupAffiliation =
+    selectedCharacter?.connections["group-affiliation"];
+
+  useEffect(() => {
+    test();
+    console.log(selectedCharacter);
+  }, [fullNameIfNoName]);
 
   return (
     <>
       {isTabActive && (
-        <div className="detailed_container">
+        <div className="detailed_container animate__animated animate__bounceInLeft">
           <div className="left-items">
             <img
-              src={selectedCharacter?.images.lg}
+              src={
+                selectedCharacter?.images?.lg || selectedCharacter?.image?.url
+              }
               alt={selectedCharacter?.name}
             />
           </div>
+
           <div className="right-items">
             <h1>{selectedCharacter?.name}</h1>
             <Tabs
@@ -44,11 +68,11 @@ const DetailedCard = ({
                         <strong>Race:</strong>{" "}
                         {selectedCharacter?.appearance.race}
                       </p>
-                      <p>
+                      <p className={test(selectedCharacter)}>
                         <strong>Height:</strong>{" "}
                         {selectedCharacter?.appearance.height[1]}
                       </p>
-                      <p>
+                      <p className={test(selectedCharacter)}>
                         <strong>Weight:</strong>{" "}
                         {selectedCharacter?.appearance.weight[1]}
                       </p>
@@ -60,20 +84,24 @@ const DetailedCard = ({
                   content: (
                     <div style={{ padding: "10px" }}>
                       <p>
-                        <strong>Full Name:</strong>{" "}
-                        {selectedCharacter?.biography.fullName}
+                        <strong>Full Name: </strong>{" "}
+                        {selectedCharacter?.biography.fullName ||
+                          fullNameIfNoName}
                       </p>
                       <p>
                         <strong>Alter Egos:</strong>{" "}
-                        {selectedCharacter?.biography.alterEgos}
+                        {selectedCharacter?.biography.alterEgos ||
+                          alterEgoIfNoAlterEgo}
                       </p>
                       <p>
                         <strong>Place of Birth:</strong>{" "}
-                        {selectedCharacter?.biography.placeOfBirth}
+                        {selectedCharacter?.biography.placeOfBirth ||
+                          birthIfNoBirth}
                       </p>
                       <p>
                         <strong>First Appearance:</strong>{" "}
-                        {selectedCharacter?.biography.firstAppearance}
+                        {selectedCharacter?.biography.firstAppearance ||
+                          appearanceIfNoAppearance}
                       </p>
                       <p>
                         <strong>Publisher:</strong>{" "}
@@ -92,7 +120,8 @@ const DetailedCard = ({
                     <div style={{ textAlign: "center" }}>
                       <p>
                         <strong>Group Affiliation:</strong>{" "}
-                        {selectedCharacter?.connections.groupAffiliation}
+                        {selectedCharacter?.connections.groupAffiliation ||
+                          groupAffiliationIfNogroupAffiliation}
                       </p>
                       <p>
                         <strong>Relatives:</strong>{" "}

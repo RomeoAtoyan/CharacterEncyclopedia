@@ -4,35 +4,40 @@ import { useDebounce } from "../Debounce/Debounce";
 import Card from "react-bootstrap/Card";
 import "animate.css";
 
-const Search = () => {
-  const [search, setSearch] = useState("");
+const Search = ({ setSelectedCharacter, setIsTabActive }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [emptySearch, setEmptySearch] = useState(true);
-  const [searchedHero, setSearchedHero] = useState(null);
-  const debouncedSearch = useDebounce(search, 1000);
+  const [foundChar, setFoundChar] = useState(null);
+  const debouncedSearch = useDebounce(searchTerm, 1000);
+  const [isResultSelected, setIsResultSelected] = useState(false);
 
   // fetch karakter info a.d.v input
   const getSearchedCharacter = async () => {
-    const options = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": "62f920c671msh3ba91345981d596p128993jsn9f1cac9f053b",
-        "X-RapidAPI-Host": "superhero-search.p.rapidapi.com",
-      },
-    };
     const response = await fetch(
-      `https://superhero-search.p.rapidapi.com/api/?hero=${search}`,
-      options
+      `https://www.superheroapi.com/api.php/727054372039115/search/${searchTerm}`
     );
     const data = await response.json();
-    setSearchedHero(data);
-    console.log(data);
+    setFoundChar(data?.results);
+    console.log(data?.results);
   };
 
-  // zoek input waarde naar search state
+  //log naam van gezochte karakter
+  const displaySearchedChar = (char) => {
+    console.log(`Name is ${char?.name} and ID is ${char?.id}`);
+    setSelectedCharacter(char);
+    setIsTabActive(true);
+    setIsResultSelected(true);
+    let input = document.getElementById("search-input");
+    input.value = "";
+    console.log(char)
+  };
+
+  // zoekinput waarde naar search state
   // geen karakter tonen als input leeg is
   const getSearchTerm = (e) => {
     e.target.value === "" ? setEmptySearch(true) : setEmptySearch(false);
-    setSearch(e.target.value);
+    setSearchTerm(e.target.value);
+    setIsResultSelected(false);
   };
 
   // component refreshen als input veranderd. DEBOUNCE voor minimale netwerk gebruik (1 seconde wachten op input waarde voordat de data wordt gefetcht)
@@ -43,29 +48,24 @@ const Search = () => {
   return (
     <aside className="search-container">
       <div className="input-section">
-        <input onChange={getSearchTerm} type="text" />
+        <input id="search-input" onChange={getSearchTerm} type="text" />
       </div>
-      {emptySearch ? (
+      {emptySearch || isResultSelected ? (
         ""
       ) : (
-        <div className="search-result-section animate__animated animate__fadeInDown">
-          <div className="search-result ">
-            <Card
-              style={{ width: "10rem", color: "yellow" }}
-              className="card-shadow bg-black"
+        <div
+          className={`search-result-section animate__animated animate__fadeInDown`}
+        >
+          {foundChar?.map((hero) => (
+            <div
+              onClick={() => displaySearchedChar(hero)}
+              key={hero?.id}
+              className="result"
             >
-              <Card.Img
-                className="result-image"
-                variant="top"
-                src={searchedHero?.images?.md}
-              />
-              <Card.Body>
-                <Card.Title style={{ textAlign: "center", fontSize: "medium" }}>
-                  {searchedHero?.name}
-                </Card.Title>
-              </Card.Body>
-            </Card>
-          </div>
+              <img src={hero?.image?.url} alt="" />
+              <h3>{hero?.name}</h3>
+            </div>
+          ))}
         </div>
       )}
     </aside>

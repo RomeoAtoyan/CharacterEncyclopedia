@@ -5,11 +5,13 @@ import Search from "./Components/Search/Search";
 import Nav from "./Components/Navbar/Navbar";
 import DetailedCard from "./Components/Cards/DetailedCard";
 
+
 function App() {
   // nodige state in app.js declareren om door te geven aan de componenten
   const [heroes, setHeroes] = useState(null);
   const [searchedHero, setSearchedHero] = useState(null);
   const [selectedCharacter, setSelectedCharacter] = useState();
+  const [activeTab, setActiveTab] = useState("Appearance");
   const [isTabActive, setIsTabActive] = useState(false);
 
   // list van karakters fetchen en omvormen naar json formaat en heroes state omzetten naar de ontvangen data
@@ -49,12 +51,14 @@ function App() {
           setIsTabActive={setIsTabActive}
         />
         <div className="search-and-detailed-container">
-          <Search />
-          <DetailedCard
+          <Search
+            setSelectedCharacter={setSelectedCharacter}
             setIsTabActive={setIsTabActive}
+          />
+          <DetailedCard
+            setHeroes={setHeroes}
             isTabActive={isTabActive}
             selectedCharacter={selectedCharacter}
-            setSelectedCharacter={setSelectedCharacter}
           />
         </div>
       </main>

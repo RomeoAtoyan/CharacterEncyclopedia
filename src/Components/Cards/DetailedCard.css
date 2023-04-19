@@ -3,6 +3,9 @@
   width: 800px;
   background-color: black;
   display: flex;
+  box-shadow: 0 20px 30px black;
+  z-index: 0;
+  margin-right: 30px;
 }
 
 .detailed_container img {
@@ -19,13 +22,20 @@
 
 .right-items {
   width: 60%;
-  height: 100%;
   background-color: black;
   color: white;
 }
 
 .right-items h1 {
-  font-size: x-large;
   text-align: center;
   margin: 0;
+  padding-top: 10px;
+}
+
+.card-shadow {
+  box-shadow: 0 0px 30px black;
+}
+
+.no-cm {
+  display: none;
 }
