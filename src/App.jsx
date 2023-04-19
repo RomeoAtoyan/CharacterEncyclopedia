@@ -5,7 +5,6 @@ import Search from "./Components/Search/Search";
 import Nav from "./Components/Navbar/Navbar";
 import DetailedCard from "./Components/Cards/DetailedCard";
 
-
 function App() {
   // nodige state in app.js declareren om door te geven aan de componenten
   const [heroes, setHeroes] = useState(null);
@@ -13,13 +12,15 @@ function App() {
   const [selectedCharacter, setSelectedCharacter] = useState();
   const [activeTab, setActiveTab] = useState("Appearance");
   const [isTabActive, setIsTabActive] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // list van karakters fetchen en omvormen naar json formaat en heroes state omzetten naar de ontvangen data
   const getHeroes = async () => {
+    setLoading(true);
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "62f920c671msh3ba91345981d596p128993jsn9f1cac9f053b",
+        "X-RapidAPI-Key": "60c503507fmsh0cc3a931ffb93bfp1d4530jsnf6378345cc90",
         "X-RapidAPI-Host": "superhero-search.p.rapidapi.com",
       },
     };
@@ -30,6 +31,7 @@ function App() {
     const data = await response.json();
     setHeroes(data);
     console.log(data);
+    setLoading(false); 
   };
 
   useEffect(() => {
@@ -49,6 +51,9 @@ function App() {
           setHeroes={setHeroes}
           isTabActive={isTabActive}
           setIsTabActive={setIsTabActive}
+          getHeroes={getHeroes}
+          loading={loading}
+          setLoading={setLoading}
         />
         <div className="search-and-detailed-container">
           <Search
