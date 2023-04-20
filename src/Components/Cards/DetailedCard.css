@@ -42,3 +42,8 @@
 .no-cm {
   display: none;
 }
+
+.tab-content {
+  overflow-y: scroll;
+}
+

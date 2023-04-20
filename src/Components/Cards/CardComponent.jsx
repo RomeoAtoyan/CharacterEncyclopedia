@@ -53,7 +53,6 @@ const CardComponent = ({
             onClick={() => {
               updateDetailedCharacterCard(hero);
             }}
-            style={{ width: "160px", height: "300px" }}
             className="bg-black text-light animate__animated animate__slideInLeft card-shadow character-mini-card"
           >
             <Card.Img variant="top" src={hero?.images?.lg} />

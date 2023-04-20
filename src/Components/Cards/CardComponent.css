@@ -24,6 +24,11 @@
   cursor: pointer;
 }
 
+.character-mini-card {
+  width: 160px;
+  height: 300px;
+}
+
 .refresh-characters:hover {
   transform: translateY(-6px);
 }

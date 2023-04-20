@@ -46,7 +46,6 @@ const DetailedCard = ({
               alt={selectedCharacter?.name}
             />
           </div>
-
           <div className="right-items">
             <h1>{selectedCharacter?.name}</h1>
             <Tabs
@@ -114,7 +113,7 @@ const DetailedCard = ({
                 {
                   label: "Connections",
                   content: (
-                    <div style={{ textAlign: "center" }}>
+                    <div className="connection-container" style={{ textAlign: "center" }}>
                       <p>
                         <strong>Group Affiliation:</strong>{" "}
                         {selectedCharacter?.connections.groupAffiliation ||
