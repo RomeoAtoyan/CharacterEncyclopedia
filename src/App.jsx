@@ -10,7 +10,6 @@ function App() {
   const [heroes, setHeroes] = useState(null);
   const [searchedHero, setSearchedHero] = useState(null);
   const [selectedCharacter, setSelectedCharacter] = useState();
-  const [activeTab, setActiveTab] = useState("Appearance");
   const [isTabActive, setIsTabActive] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -20,7 +19,7 @@ function App() {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "60c503507fmsh0cc3a931ffb93bfp1d4530jsnf6378345cc90",
+        "X-RapidAPI-Key": `${import.meta.env.VITE_API_KEY}`,
         "X-RapidAPI-Host": "superhero-search.p.rapidapi.com",
       },
     };
@@ -30,8 +29,7 @@ function App() {
     );
     const data = await response.json();
     setHeroes(data);
-    console.log(data);
-    setLoading(false); 
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -48,7 +46,6 @@ function App() {
           setSearchedHero={setSearchedHero}
           searchedHero={searchedHero}
           heroes={heroes}
-          setHeroes={setHeroes}
           isTabActive={isTabActive}
           setIsTabActive={setIsTabActive}
           getHeroes={getHeroes}

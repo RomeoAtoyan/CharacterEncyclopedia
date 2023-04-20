@@ -14,22 +14,21 @@ const Search = ({ setSelectedCharacter, setIsTabActive }) => {
   // fetch karakter info a.d.v input
   const getSearchedCharacter = async () => {
     const response = await fetch(
-      `https://www.superheroapi.com/api.php/727054372039115/search/${searchTerm}`
+      `https://www.superheroapi.com/api.php/${
+        import.meta.env.VITE_ACCESS_TOKEN
+      }/search/${searchTerm}`
     );
     const data = await response.json();
     setFoundChar(data?.results);
-    console.log(data?.results);
   };
 
   //log naam van gezochte karakter
   const displaySearchedChar = (char) => {
-    console.log(`Name is ${char?.name} and ID is ${char?.id}`);
     setSelectedCharacter(char);
     setIsTabActive(true);
     setIsResultSelected(true);
     let input = document.getElementById("search-input");
     input.value = "";
-    console.log(char)
   };
 
   // zoekinput waarde naar search state
@@ -48,7 +47,12 @@ const Search = ({ setSelectedCharacter, setIsTabActive }) => {
   return (
     <aside className="search-container">
       <div className="input-section">
-        <input id="search-input" placeholder="Search Characters" onChange={getSearchTerm} type="text" />
+        <input
+          id="search-input"
+          placeholder="Search Characters"
+          onChange={getSearchTerm}
+          type="text"
+        />
       </div>
       {emptySearch || isResultSelected ? (
         ""

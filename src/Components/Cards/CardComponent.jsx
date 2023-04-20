@@ -8,7 +8,6 @@ import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 const CardComponent = ({
   heroes,
-  setHeroes,
   setSelectedCharacter,
   setIsTabActive,
   getHeroes,
@@ -44,7 +43,7 @@ const CardComponent = ({
         ) : (
           <>
             <FontAwesomeIcon className="refresh-rotate" icon={faRotateRight} />
-            <span>refresh characters</span>
+            <span>Refresh Characters</span>
           </>
         )}
       </aside>
