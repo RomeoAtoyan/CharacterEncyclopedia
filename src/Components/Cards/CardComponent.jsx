@@ -15,24 +15,6 @@ const CardComponent = ({
   loading,
   setLoading,
 }) => {
-  // fetch karakters en zet state van heroes naar ontvangen data
-  // const getHeroes = async () => {
-  //   setLoading(true);
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       "X-RapidAPI-Key": "60c503507fmsh0cc3a931ffb93bfp1d4530jsnf6378345cc90",
-  //       "X-RapidAPI-Host": "superhero-search.p.rapidapi.com",
-  //     },
-  //   };
-  //   const response = await fetch(
-  //     "https://superhero-search.p.rapidapi.com/api/heroes",
-  //     options
-  //   );
-  //   const data = await response.json();
-  //   setHeroes(data);
-  //   setLoading(false);
-  // };
 
   // zet geklikte karakter naar selectedCharacter state
   const updateDetailedCharacterCard = (character) => {

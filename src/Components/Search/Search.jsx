@@ -48,7 +48,7 @@ const Search = ({ setSelectedCharacter, setIsTabActive }) => {
   return (
     <aside className="search-container">
       <div className="input-section">
-        <input id="search-input" onChange={getSearchTerm} type="text" />
+        <input id="search-input" placeholder="Search Characters" onChange={getSearchTerm} type="text" />
       </div>
       {emptySearch || isResultSelected ? (
         ""
