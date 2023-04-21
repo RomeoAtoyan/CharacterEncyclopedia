@@ -43,6 +43,10 @@
   display: none;
 }
 
+.tab-content::-webkit-scrollbar {
+  display: none;
+}
+
 .tab-content {
   overflow-y: scroll;
 }
